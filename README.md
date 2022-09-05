@@ -11,7 +11,7 @@ Examples of AWS features and uses
 
 
 ### ROLES
-- Create a basic role [Normal role creation](https://github.com/Roche-Olivier/aws-examples/tree/main/CloudFormation/Roles/basic_role)
+- [Create a basic service role for a lambda function](https://github.com/Roche-Olivier/aws-examples/tree/main/CloudFormation/Roles/service_role_for_lambda)
 
 
 
