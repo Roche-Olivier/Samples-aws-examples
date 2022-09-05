@@ -1,6 +1,11 @@
 # LAMBDA Function with source code loaded into the function with a ZIP file.
 
-## What to take into consideration
-- The source must be called index.js as in the index file in this directory.
-- You can add more files and zip it all into the zip file to upload to the bucket.
-- zip the file to any name , and reference that name in the cloud formation template.
+## Steps
+- Create a bucket called "col-code-repo-for-lambda". Note the name of the bucket as you will refer to this in the cloud formation template.
+- ZIP all the items under the "src" folder and create a zip file called "my_code.zip". Note this name as the template will require the name.
+
+
+## Things to consider
+- The source must be called index.js in the "src" folder.
+- You can add more files and directories to the src folder to include node packages.
+- All items that is needed to deploy is in the "template" folder.

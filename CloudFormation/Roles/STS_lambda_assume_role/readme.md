@@ -1,0 +1,1 @@
+# Role for sts assume role on lambda
