@@ -1,63 +1,19 @@
 
 Description:
-  Reference a bucket where a zip file has been uploaded to with the relevant lambda code.
-  Create a role and a lambda function with code in the lambda function.
-  To make this work you need to have a zip file already copied to the bucket you want to referecne for the source code.
+  Create a normal bucket with no other details
 
 Parameters:
-  # Role nae wyou would like to call your role
-  roleName:
+  #The bucket name you would like to create.
+  s3BucketName:
     Type: String
-    Default: 'col-lambda-role'
-  # The name you want to call your lambda function
-  lambdaFunctionName:
-    Type: String
-    Default: 'col-lambda-function'
-  #The source code bucket where the zip files would reside that you want to populate the lambda function codde with.
-  s3CodeBucket:
-    Type: String
-    Default: 'col-code-repo-for-lambda'
-  # The name of the zip file you want to use for the code.
-  s3CodezipKey:
-    Type: String
-    Default: 'my_code.zip'
-    
-Resources:
-  # Create the role for the lambda function
-  LambdaRole:
-    Type: AWS::IAM::Role
-    Properties:
-      RoleName: !Ref roleName
-      AssumeRolePolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service:
-                - lambda.amazonaws.com
-            Action:
-              - 'sts:AssumeRole'
-      ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
-  # Create the lambda function
-  LambdaInitialFunction:
-    Type: AWS::Lambda::Function
-    Properties:
-      Runtime: nodejs16.x
-      Role: !GetAtt LambdaRole.Arn
-      Handler: index.handler
-      FunctionName: !Ref lambdaFunctionName
-      Architectures: 
-        - x86_64
-      Code: 
-        S3Bucket: !Ref s3CodeBucket
-        S3Key: !Ref s3CodezipKey
-      Description: Lambda function example with code deployed into the function.
-      Tags: 
-        - Key: "Application"
-          Value: "test-app"
-      Timeout: 10
+    Default: 'test-bucket'
 
+Resources:
+  # Create the s3 bucket
+  S3CompletedBucket:
+    Type: AWS::S3::Bucket
+    Properties: 
+      BucketName: !Ref s3BucketName
 
 
 
