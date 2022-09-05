@@ -8,3 +8,8 @@ Examples of AWS features and uses
 - Create a standard bucket  [Normal S3 buckets creation](https://github.com/Roche-Olivier/aws-examples/tree/main/CloudFormation/S3/s3_bucket)
 - Create a bucket with sub folders in the bucket [S3 buckets with sub folders](https://github.com/Roche-Olivier/aws-examples/tree/main/CloudFormation/S3/s3_buckets_with_sub_folders)
 
+### LAMBDA
+- Create a basic lambda function
+- Create a lambda function with code that is stored in a s3 bucket.
+- Create a lambda function with a trigger
+
