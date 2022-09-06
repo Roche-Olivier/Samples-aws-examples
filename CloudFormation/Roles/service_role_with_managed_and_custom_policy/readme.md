@@ -1,0 +1,1 @@
+# Role with a managed policy and a custom policy
