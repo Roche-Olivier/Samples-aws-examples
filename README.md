@@ -6,7 +6,7 @@ Examples of AWS features and uses
 
 ### LAMBDA
 - [Lambda function with a managed role and code stored in a s3 bucket](https://github.com/Roche-Olivier/aws-examples/tree/main/CloudFormation/Lambda/lambda_with_managed_role_and_code_ref_in_bucket)
-
+- [Lambda function to s3 bucket that triggers another lambda function](https://github.com/Roche-Olivier/aws-examples/tree/main/CloudFormation/Lambda/lambda_function_to_a_bucket_that_triggers_another_lambda)
 
 
 ### ROLES
