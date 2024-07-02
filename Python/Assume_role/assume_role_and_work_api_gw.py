@@ -1,4 +1,5 @@
 # Lambda function to check if the bucket with the name exists
+import json
 import boto3
 import requests
 
@@ -18,7 +19,8 @@ _api_host_id = "xxxxxx.execute-api.xxxx.amazonaws.com"
 _service = 'execute-api'
 _server_url = "xxxx"
 _algorithm = 'AWS4-HMAC-SHA256'
-_request_body = '{"xxx": "1","xxx": "111111"}'
+_request_body = json.dumps({"xxx": "1","xxx": "111111"})
+
 
 
 # ---- assume role ------
@@ -58,23 +60,25 @@ def getSignatureKey():
 HTTPMethod = _http_method+ '\n'
 CanonicalURI = _canonical_uri+ '\n'
 CanonicalQueryString = ''+ '\n'
-CanonicalHeaders = 'host:'+_api_host_id+"\n"
-SignedHeaders = 'host'+"\n"
+CanonicalHeaders = 'Host:'+_api_host_id+"\n"
+SignedHeaders = 'Host'+"\n"
 HashedPayload = hashed_value(_request_body)
 _canonical_request = (HTTPMethod + CanonicalURI + CanonicalQueryString + CanonicalHeaders + SignedHeaders + HashedPayload)
+
 # String To sign
 Algorithm = _algorithm + '\n'
 TimeStamp = _amzdate + '\n'
 Scope = _datestamp + '/' + _base_region_name + '/' + _service + '/aws4_request'+ '\n'
 HexCanonicalRequest = hashed_value(_canonical_request)
 _string_to_sign = (Algorithm +  TimeStamp +  Scope + HexCanonicalRequest)
+
 # Signature
 signing_key = getSignatureKey()
 signature = sign_hex(signing_key, _string_to_sign)
 
 # Add signing information to the request
 auth_header_part1 = ''+_algorithm + ' Credential=' + _assumed_access_key+ '/'+_datestamp+ '/'+_base_region_name+ '/'+_service+ '/aws4_request, '
-auth_header_part2 = 'SignedHeaders=host, '
+auth_header_part2 = 'SignedHeaders=Host, '
 auth_header_part3 = 'Signature='+signature
 authorization_header = (auth_header_part1 + auth_header_part2 + auth_header_part3)
 print(authorization_header)
@@ -84,7 +88,7 @@ headers = {'Host': _api_host_id,
            'x-amz-security-token': _session_token,
            'Authorization': authorization_header}
 
-request_url = 'https://' + _server_url + CanonicalURI
+request_url = 'https://' + _server_url + _canonical_uri
 
 print(request_url)
 print(headers)
