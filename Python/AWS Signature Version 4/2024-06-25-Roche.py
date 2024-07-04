@@ -5,18 +5,21 @@ import hmac
 # https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-header-based-auth.html
 
 # Request parameters
-_region = 'xxxx'
-_http_method = "PUT"
-_canonical_uri = '/xxxx/'
-_api_host_id = "xxxx.execute-api.xxxx.amazonaws.com"
-_service = 'execute-api'
+_region = 'xxxx' # The aws region
+_service = 'execute-api' # The AWS service you will be using
+_http_method = "xxxx" # The http method, GET,POST,PUT
+_canonical_uri = '/xxxx/' # The URL part after the domain before any query strings
+_api_id = 'xxxx'
+_api_host_id = _api_id+'.'+_service+'.'+_region+'.amazonaws.com'
 _server_url = "xxxx"
+_protocol = 'https://'
 _algorithm = 'AWS4-HMAC-SHA256'
-_request_body = '{"type": "1","to_phone_number": "xxxx"}'
+_request_body = '{"field1": "xxxx","field2": "xxxx"}'
+
 # user parameters
 _assumed_access_key = "xxxx"
-_secret_access_key = "xxxx"
-_session_token = "xxxx"
+_assumed_secret_access_key = "xxxx"
+_assumed_session_token = "xxxx"
 
 # Create a datetime object for signing
 t = datetime.datetime.utcnow()
@@ -30,7 +33,7 @@ def sign(key, msg):
 def sign_hex(key, msg):
     return hmac.new(key, (msg).encode("utf-8"), hashlib.sha256).hexdigest()
 def getSignatureKey():
-    kDate = sign(("AWS4" + _secret_access_key).encode("utf-8"), _datestamp)
+    kDate = sign(("AWS4" + _assumed_secret_access_key).encode("utf-8"), _datestamp)
     kRegion = sign(kDate, _region)
     kService = sign(kRegion, _service)
     kSigning = sign(kService, "aws4_request")
@@ -40,7 +43,7 @@ def getSignatureKey():
 HTTPMethod = _http_method+ '\n'
 CanonicalURI = _canonical_uri+ '\n'
 CanonicalQueryString = ''+ '\n'
-CanonicalHeaders = 'host:'+_api_host_id+'\n'+'\n'
+CanonicalHeaders = 'host:'+_api_host_id+'\n'+'\n' # There is 2 newlines here, the one delimits the end of the header, and the other the end of the field
 SignedHeaders = 'host'+'\n'
 HashedPayload = hashed_value(_request_body)
 _canonical_request = (HTTPMethod + CanonicalURI + CanonicalQueryString + CanonicalHeaders + SignedHeaders + HashedPayload)
@@ -65,10 +68,10 @@ authorization_header = (auth_header_part1 + auth_header_part2 + auth_header_part
 # Make the request
 headers = {'host': _api_host_id,
            'x-amz-date': _amzdate,
-           'x-amz-security-token': _session_token,
+           'x-amz-security-token': _assumed_session_token,
            'authorization': authorization_header}
 
-request_url = 'https://' + _server_url + _canonical_uri
+request_url = _protocol + _server_url + _canonical_uri
 response = requests.put(request_url, headers=headers, timeout=5, verify=False, allow_redirects=True, data=_request_body)
 
 print(response.status_code)
