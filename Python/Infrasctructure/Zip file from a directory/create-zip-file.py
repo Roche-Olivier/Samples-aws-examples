@@ -1,10 +1,18 @@
+# Take an input directlry and writes it to an output zip file
+
 import os
 import zipfile
+# https://docs.python.org/3/library/zipfile.html
 
-zip_dir_name = "./Python/Infrasctructure/Zip file from a directory/ZipTarget"
-# zip_dir_name = "f:/test/"
-output_filename = "./Python/Infrasctructure/Zip file from a directory/compressed_file.zip"
-# output_filename = "f:/compressed_file.zip"
+# This example can be used or the path specifically ( as provided )
+# zip_dir_name = "./Python/Infrasctructure/Zip file from a directory/ZipTarget"
+# output_filename = "./Python/Infrasctructure/Zip file from a directory/compressed_file.zip"
+
+# Or you can create your own test directory
+# Have the zip file written to your selected path
+# For example the samples below 
+zip_dir_name = "f:/test/"
+output_filename = "f:/compressed_file.zip"
 
 def zipdir(path, ziph):
     # ziph is zipfile handle
