@@ -13,4 +13,4 @@
 ### What can i then do with the session
 - The session can then be used to call AWS clients for example S3.
 - On the client you can then execute specific actions
-- For example [Assume-role_Session_S3](https://github.com/Roche-Olivier/aws-examples/blob/main/Python/Assume_role/Assume-role_Session_S3.py) is a complete example of assuming a role creating a new session and performing an action on the session.
+- [Link](https://github.com/Roche-Olivier/aws-examples/blob/main/Python/Assume_role/Assume-role_Session_S3.py) to the complete example of assuming a role creating a new session and performing an action on the session.
