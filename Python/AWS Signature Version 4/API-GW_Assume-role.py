@@ -1,3 +1,8 @@
+# Use the current AWS env.
+# Assume a foreign role.
+# Call an AWS API Gateway API end point on the foreign vpce
+# Print the results
+
 import requests
 import datetime
 import hashlib

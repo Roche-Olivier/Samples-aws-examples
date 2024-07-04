@@ -1,3 +1,7 @@
+# Use the current AWS env.
+# Call an AWS API Gateway API end point on the vpce
+# Print the results
+
 import requests
 import datetime
 import hashlib
@@ -9,12 +13,12 @@ _region = 'xxxx' # The aws region
 _service = 'execute-api' # The AWS service you will be using
 _http_method = "xxxx" # The http method, GET,POST,PUT
 _canonical_uri = '/xxxx/' # The URL part after the domain before any query strings
-_api_id = 'xxxx'
+_api_id = 'xxxx' # The id in the API GW UI
 _api_host_id = _api_id+'.'+_service+'.'+_region+'.amazonaws.com'
-_server_url = "xxxx"
+_server_url = "xxxx" # the domain and subdomain of the server
 _protocol = 'https://'
 _algorithm = 'AWS4-HMAC-SHA256'
-_request_body = '{"field1": "xxxx","field2": "xxxx"}'
+_request_body = '{"field1": "xxxx","field2": "xxxx"}' # Additional data to be posted
 
 # user parameters
 _assumed_access_key = "xxxx"
